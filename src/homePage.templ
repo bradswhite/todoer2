@@ -1,0 +1,18 @@
+package components
+
+templ HomePage() {
+  @Page("Templ Demo") {
+    @Hello("templ")
+    @Btn("Submit!")
+    @Menu()
+
+    <button
+      hx-get='/api/todos'
+      hx-trigger='click'
+      hx-target='#todos'
+      class='btn btn-primary'
+    >Load todos</button>
+
+    <div id='todos'></div>
+  }
+}
