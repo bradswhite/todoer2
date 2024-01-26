@@ -20,6 +20,30 @@ func GetAllTodos(db *sqlx.DB) []Todo {
   return todos
 }
 
+func GetTodosForUser(db *sqlx.DB, username string) []Todo {
+  todos := []Todo {}
+
+  err := db.Select(&todos, "SELECT * FROM TODOS WHERE USERNAME = $1;", username)
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  return todos
+}
+
+func AddTodo(db *sqlx.DB, username, text string) {
+  _, err := db.NamedExec(`INSERT INTO TODOS (USERNAME, TEXT) VALUES (:username,:text)`, 
+    map[string]interface{} {
+      "username": username,
+      "text": text,
+    })
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  //return msg
+}
+
 func Conn() *sqlx.DB {
   if err := godotenv.Load(); err != nil {
     log.Fatal("Error loading .env file")

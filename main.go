@@ -19,8 +19,23 @@ func main() {
   component := components.HomePage()
   app.Get("/", adaptor.HTTPHandler(templ.Handler(component)))
   
-  component = components.Todos(fns.GetAllTodos(db))
+  component = components.AllTodos(fns.GetAllTodos(db))
   app.Get("/api/todos", adaptor.HTTPHandler(templ.Handler(component)))
+  
+  app.Get("/api/todos/:username", func (c *fiber.Ctx) error {
+    component = components.Todos(fns.GetTodosForUser(db, c.Params("username")))
+    return adaptor.HTTPHandler(templ.Handler(component))(c)
+  })
+  
+  app.Post("/api/add-todo", func (c *fiber.Ctx) error {
+    fns.AddTodo(db, c.FormValue("username"), c.FormValue("text"))
+    return c.SendString("Successfully added todo")
+  })
+
+  /* Page Not Found Management */
+	app.Use(func(c *fiber.Ctx) error {
+		return c.Status(fiber.StatusNotFound).SendFile("./dist/404.html")
+	})
   
   log.Fatal(app.Listen(":3000"))
 }

@@ -10,8 +10,3 @@ INSERT INTO TODOS (USERNAME, TEXT) VALUES
   ('Brad', 'First Todo'),
   ('Brad', 'Second Todo'),
   ('Brad', 'Third Todo');
-
-INSERT INTO TODOS VALUES
-  (DEFAULT, 'Brad', 'First Todo', DEFAULT, DEFAULT),
-  (DEFAULT, 'Brad', 'Second Todo', DEFAULT, DEFAULT),
-  (DEFAULT, 'Brad', 'Third Todo', DEFAULT, DEFAULT);

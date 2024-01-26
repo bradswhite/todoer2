@@ -2,17 +2,27 @@ package components
 
 templ HomePage() {
   @Page("Templ Demo") {
-    @Hello("templ")
-    @Btn("Submit!")
-    @Menu()
+    <div
+      id='todos'
+      hx-get='/api/todos'
+      hx-trigger='load delay:1s'
+      hx-indicator='#todo-spinner'
+    ></div>
+    <span id='todo-spinner' class="htmx-indicator loading loading-spinner text-primary"></span>
 
     <button
+      class='btn btn-primary'
       hx-get='/api/todos'
       hx-trigger='click'
       hx-target='#todos'
-      class='btn btn-primary'
-    >Load todos</button>
+      hx-indicator='#todo-spinner'
+    >Reload Todos</button>
+    
+    <div
+      hx-get='/api/todos/Brad'
+      hx-trigger='load delay:1s'
+    ></div>
 
-    <div id='todos'></div>
+    @AddTodo()
   }
 }

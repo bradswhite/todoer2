@@ -1,0 +1,30 @@
+package components
+
+templ AddTodo() {
+  <form
+    hx-post='/api/add-todo'
+    action=''
+    hx-trigger='submit'
+    method='post'
+    hx-swap='transition:true'
+  >
+    <label class="form-control w-full max-w-xs">
+      <div class="label">
+        <span class="label-text">Enter username:</span>
+      </div>
+      <input name='username' type="text" placeholder="Type username" class="input input-bordered w-full max-w-xs" />
+    </label>
+    
+    <label class="form-control w-full max-w-xs">
+      <div class="label">
+        <span class="label-text">Enter todo:</span>
+      </div>
+      <input name='text' type="text" placeholder="Type todo" class="input input-bordered w-full max-w-xs" />
+    </label>
+
+    <button
+      class='btn btn-primary'
+      type='submit'
+    >Add Todo</button>
+  </form>
+}

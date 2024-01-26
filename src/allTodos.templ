@@ -1,0 +1,19 @@
+package components
+
+import (
+  fns "todoer/fns"
+)
+
+templ AllTodos(todos []fns.Todo) {
+  for _, todo := range todos {
+    <div>
+      {todo.Username}
+      {todo.Text}
+      if todo.Completed {
+        Completed
+      } else {
+        In Progress
+      }
+    </div>
+  }
+}
