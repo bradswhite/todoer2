@@ -28,8 +28,9 @@ func main() {
   })
   
   app.Post("/api/add-todo", func (c *fiber.Ctx) error {
-    fns.AddTodo(db, c.FormValue("username"), c.FormValue("text"))
-    return c.SendString("Successfully added todo")
+    component = components.Toast(fns.AddTodo(db, c.FormValue("username"), c.FormValue("text")))
+    return adaptor.HTTPHandler(templ.Handler(component))(c)
+    //c.SendString("Successfully added todo")
   })
 
   /* Page Not Found Management */

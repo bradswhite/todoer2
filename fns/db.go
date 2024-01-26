@@ -4,6 +4,7 @@ import (
   //"database/sql"
   "log"
   "os"
+  "fmt"
   "github.com/joho/godotenv"
   _ "github.com/lib/pq"
   "github.com/jmoiron/sqlx"
@@ -31,8 +32,8 @@ func GetTodosForUser(db *sqlx.DB, username string) []Todo {
   return todos
 }
 
-func AddTodo(db *sqlx.DB, username, text string) {
-  _, err := db.NamedExec(`INSERT INTO TODOS (USERNAME, TEXT) VALUES (:username,:text)`, 
+func AddTodo(db *sqlx.DB, username, text string) string/*sql.Result*/ {
+  res, err := db.NamedExec(`INSERT INTO TODOS (USERNAME, TEXT) VALUES (:username,:text)`, 
     map[string]interface{} {
       "username": username,
       "text": text,
@@ -40,8 +41,9 @@ func AddTodo(db *sqlx.DB, username, text string) {
   if err != nil {
     log.Fatal(err)
   }
+  fmt.Println(res)
 
-  //return msg
+  return "Successfully added todo."
 }
 
 func Conn() *sqlx.DB {
